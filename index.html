@@ -297,13 +297,31 @@
         document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
       }
 
-      const pontosColeta = [
-        { id: 1, nome: "Posto de Coleta Central", endereco: "Av. Winston Churchill, 2033 - Sítio Cercado", lat: -25.5389, lng: -49.2819, tipo: "Posto Municipal", horario: "Segunda a Sexta: 8h às 17h", materiais: ["Papel", "Plástico", "Metal", "Vidro"], telefone: "(41) 3350-8484" },
-        { id: 2, nome: "Escola Municipal Sustentável", endereco: "Rua Sebastião Paraná, 456 - Sítio Cercado", lat: -25.5355, lng: -49.2845, tipo: "Ponto Educativo", horario: "Segunda a Sexta: 7h às 11h, 13h às 17h", materiais: ["Papel", "Plástico", "Pilhas"], telefone: "(41) 3350-8000" },
-        { id: 3, nome: "Supermercado Verde", endereco: "Rua Bartolomeu Lourenço de Gusmão, 789 - Sítio Cercado", lat: -25.5420, lng: -49.2790, tipo: "Parceria Privada", horario: "Segunda a Domingo: 7h às 22h", materiais: ["Plástico", "Metal", "Embalagens"], telefone: "(41) 3333-4444" },
-        { id: 4, nome: "Unidade de Saúde Reciclável", endereco: "Rua Deputado Heitor Alencar Furtado, 234 - Sítio Cercado", lat: -25.5370, lng: -49.2760, tipo: "UBS Sustentável", horario: "Segunda a Sexta: 8h às 16h", materiais: ["Papel", "Medicamentos Vencidos"], telefone: "(41) 3350-8200" },
-        { id: 5, nome: "Centro Comunitário Verde", endereco: "Rua Célio de Oliveira Rocha, 567 - Sítio Cercado", lat: -25.5335, lng: -49.2880, tipo: "Centro Comunitário", horario: "Segunda a Sábado: 9h às 18h", materiais: ["Papel", "Plástico", "Vidro", "Roupas"], telefone: "(41) 3350-8300" }
-      ];
+        const pontosColeta = [
+    { 
+      id: 1, 
+      nome: "Ecoponto Sambaqui", 
+      endereco: "R. RAD. SOUZA MORENO, 30, esquina com a R. José Otávio Meira dos Anjos", 
+      lat: -25.5380, 
+      lng: -49.2820, 
+      tipo: "Ecoponto", 
+      horario: "Segunda a Sábado: 8h às 12h e 13h às 17h", 
+      materiais: ["Papel", "Plástico", "Vidro", "Metal", "Outros recicláveis"], 
+      telefone: "156" 
+    },
+    { 
+      id: 2, 
+      nome: "Ecoponto Guaçuí", 
+      endereco: "Rua Guaçuí, esquina com a Travessa Eli Volpato", 
+      lat: -25.5355, 
+      lng: -49.2850, 
+      tipo: "Ecoponto", 
+      horario: "Segunda a Sábado: 8h às 12h e 13h às 17h", 
+      materiais: ["Papel", "Plástico", "Vidro", "Metal", "Outros recicláveis"], 
+      telefone: "156" 
+    }
+  ];
+
 
       const streets = [
         { id: 1, name: "Avenida Sagitário", days: ["segunda", "quarta", "sexta"] },
