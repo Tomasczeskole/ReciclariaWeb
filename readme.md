@@ -100,5 +100,5 @@ function highlightStreet(streetName) {
 ```
 
 ### 6. Interação com o Usuário
-- Filtros de dias da semana e tipo de resíduo atualizam dinamicamente o mapa e a lista de pontos.  
+- Filtros de dias da semana atualizam dinamicamente o mapa e a lista de pontos, por enquanto neste protótipo está em fase de teste.  
 - Cada ponto possui um cartão informativo na lateral com detalhes de horário, contato e materiais aceitos.
