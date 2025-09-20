@@ -1,0 +1,882 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reciclaria - Descarte Sustentável no Sítio Cercado</title>
+    <meta name="description" content="Plataforma educativa sobre reciclagem e descarte sustentável de resíduos no bairro Sítio Cercado, Curitiba. Encontre pontos de coleta, rotas e práticas sustentáveis." />
+    <meta name="author" content="Alexandre Gustavo Tomasczeski Brito" />
+    <meta name="keywords" content="reciclagem, sustentabilidade, Curitiba, Sítio Cercado, descarte, coleta seletiva, meio ambiente" />
+
+    <meta property="og:title" content="Reciclaria - Descarte Sustentável no Sítio Cercado" />
+    <meta property="og:description" content="Plataforma educativa sobre reciclagem e descarte sustentável de resíduos no bairro Sítio Cercado, Curitiba. Encontre pontos de coleta, rotas e práticas sustentáveis." />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@reciclaria" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+        <nav>
+          <div class="brand">
+            <div class="brand-icon">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M7 7h10v2l3-3-3-3v2H5v6h2V7zm10 10H7v-2l-3 3 3 3v-2h12v-6h-2v4z"/></svg>
+            </div>
+            <span style="font-weight: bold; font-size: 1.25rem;">Reciclaria</span>
+          </div>
+          <div class="nav-links">
+            <button class="btn-ghost" onclick="scrollToSection('home')">Início</button>
+            <button class="btn-ghost" onclick="scrollToSection('mapa')">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="inline mr-2"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              Mapa
+            </button>
+            <button class="btn-ghost" onclick="scrollToSection('educativo')">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="inline mr-2"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+              Educativo
+            </button>
+            <button class="btn-hero" onclick="scrollToSection('mapa')">Ver Pontos de Coleta</button>
+          </div>
+        </nav>
+        
+
+      </div>
+    </header>
+
+    <section id="home">
+      <div class="hero-bg">
+        <div class="hero-overlay"></div>
+      </div>
+      <div class="container hero-content">
+        <h1>
+          <span class="text-gradient">Reciclaria</span><br />
+          Sítio Cercado Sustentável
+        </h1>
+        <p style="font-size: 1.25rem; color: var(--muted-foreground); max-width: 48rem; margin: 0 auto 2rem;">Descubra os pontos de coleta e rotas de descarte de materiais recicláveis no seu bairro. Juntos por um futuro mais sustentável.</p>
+        <div style="display: flex; flex-direction: column; gap: 1rem; justify-content: center; align-items: center; margin-bottom: 3rem;">
+          <button class="btn-hero" style="font-size: 1.125rem; padding: 1rem 2rem;" onclick="scrollToSection('mapa')">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="inline mr-2"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            Explorar Mapa
+          </button>
+          <button class="btn-outline" style="font-size: 1.125rem; padding: 1rem 2rem;" onclick="scrollToSection('educativo')">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="inline mr-2"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            Aprender Mais
+          </button>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <svg width="32" height="32" fill="none" stroke="var(--primary)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span style="font-size: 1.5rem; font-weight: bold;">15+</span>
+            <span style="color: var(--muted-foreground);">Pontos de Coleta</span>
+          </div>
+          <div class="stat-card">
+            <svg width="32" height="32" fill="none" stroke="var(--accent)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            <span style="font-size: 1.5rem; font-weight: bold;">5</span>
+            <span style="color: var(--muted-foreground);">Tipos de Material</span>
+          </div>
+          <div class="stat-card">
+            <svg width="32" height="32" fill="none" stroke="var(--primary)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+            <span style="font-size: 1.5rem; font-weight: bold;">1000+</span>
+            <span style="color: var(--muted-foreground);">Famílias Atendidas</span>
+          </div>
+        </div>
+        <div class="scroll-indicator">
+          <svg width="24" height="24" fill="none" stroke="var(--primary)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 13l-7 7-7-7"/></svg>
+        </div>
+      </div>
+    </section>
+
+    <section id="mapa">
+      <div class="container">
+        <div style="text-align: center; margin-bottom: 3rem;">
+          <h2 style="font-size: 2.25rem; font-weight: bold; margin-bottom: 1rem;">Pontos de Coleta no Sítio Cercado</h2>
+          <p style="font-size: 1.25rem; color: var(--muted-foreground); max-width: 48rem; margin: 0 auto;">Explore o mapa interativo para encontrar o ponto de coleta mais próximo de você. Clique nos marcadores para ver detalhes sobre horários e materiais aceitos.</p>
+        </div>
+        <div class="filter-bar">
+          <div style="flex: 1;">
+            <label class="filter-label">Filtrar por Dia da Semana (Coleta Reciclável)</label>
+            <select id="day-filter">
+              <option value="">Todos os dias</option>
+              <option value="segunda">Segunda-feira</option>
+              <option value="terça">Terça-feira</option>
+              <option value="quarta">Quarta-feira</option>
+              <option value="quinta">Quinta-feira</option>
+              <option value="sexta">Sexta-feira</option>
+              <option value="sábado">Sábado</option>
+              <option value="domingo">Domingo</option>
+            </select>
+          </div>
+          <div style="flex: 1;">
+            <label class="filter-label">Selecionar Rua</label>
+            <select id="street-select">
+              <option value="">Selecione uma rua</option>
+            </select>
+          </div>
+          <div style="flex: 1;">
+            <label class="filter-label">Filtrar por Tipo de Lixo</label>
+            <select id="trash-type-filter" onchange="filterPoints()">
+              <option value="">Reciclável</option>
+            </select>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr; gap: 2rem;">
+          <div id="map" class="map-container"></div>
+          <div class="points-list" id="points-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="educativo">
+      <div class="container">
+        <div style="text-align: center; margin-bottom: 4rem;">
+          <h2 style="font-size: 2.25rem; font-weight: bold; margin-bottom: 1rem;">Educação Ambiental</h2>
+          <p style="font-size: 1.25rem; color: var(--muted-foreground); max-width: 48rem; margin: 0 auto;">Conhecimento é o primeiro passo para a sustentabilidade. Aprenda práticas corretas de reciclagem e contribua para um futuro mais verde.</p>
+        </div>
+        <div class="impact-grid" style="margin-bottom: 4rem;">
+          <div class="impact-card">
+            <svg width="48" height="48" fill="none" stroke="var(--primary)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            <div style="font-size: 1.875rem; font-weight: bold; color: var(--primary); margin-bottom: 0.5rem;">85%</div>
+            <div style="font-size: 1.125rem; font-weight: 600;">Redução de Resíduos</div>
+            <p style="color: var(--muted-foreground); font-size: 0.875rem;">Meta para 2024 no bairro</p>
+          </div>
+          <div class="impact-card">
+            <svg width="48" height="48" fill="none" stroke="var(--primary)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+            <div style="font-size: 1.875rem; font-weight: bold; color: var(--primary); margin-bottom: 0.5rem;">1.500</div>
+            <div style="font-size: 1.125rem; font-weight: 600;">Famílias Participantes</div>
+            <p style="color: var(--muted-foreground); font-size: 0.875rem;">Engajadas no projeto</p>
+          </div>
+          <div class="impact-card">
+            <svg width="48" height="48" fill="none" stroke="var(--primary)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+            <div style="font-size: 1.875rem; font-weight: bold; color: var(--primary); margin-bottom: 0.5rem;">200+</div>
+            <div style="font-size: 1.125rem; font-weight: 600;">Árvores Poupadas</div>
+            <p style="color: var(--muted-foreground); font-size: 0.875rem;">Por mês com reciclagem de papel</p>
+          </div>
+        </div>
+        <div class="edu-grid">
+          <div class="edu-card">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <div style="padding: 0.75rem; border-radius: 0.5rem; background: rgba(34,197,94,0.1);">
+                <svg width="32" height="32" fill="none" stroke="var(--primary)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h10v2l3-3-3-3v2H5v6h2V7zm10 10H7v-2l-3 3 3 3v-2h12v-6h-2v4z"/></svg>
+              </div>
+              <div>
+                <h3 style="font-size: 1.25rem; font-weight: bold;">Como Separar Corretamente</h3>
+                <p style="font-size: 1rem; color: var(--muted-foreground);">Aprenda a separar seus resíduos de forma eficiente</p>
+              </div>
+            </div>
+            <ul class="edu-list">
+              <li class="edu-item"><div class="dot"></div><span style="color: var(--muted-foreground);">Papel: jornais, revistas, caixas de papelão limpos</span></li>
+              <li class="edu-item"><div class="dot"></div><span style="color: var(--muted-foreground);">Plástico: garrafas PET, embalagens, sacolas plásticas</span></li>
+              <li class="edu-item"><div class="dot"></div><span style="color: var(--muted-foreground);">Metal: latas de alumínio, tampas, objetos de ferro</span></li>
+              <li class="edu-item"><div class="dot"></div><span style="color: var(--muted-foreground);">Vidro: frascos, garrafas, recipientes de vidro</span></li>
+              <li class="edu-item"><div class="dot"></div><span style="color: var(--muted-foreground);">Orgânico: restos de comida, cascas de frutas</span></li>
+            </ul>
+          </div>
+          <div class="edu-card">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <div style="padding: 0.75rem; border-radius: 0.5rem; background: rgba(34,197,94,0.1);">
+                <svg width="32" height="32" fill="none" stroke="var(--primary)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+              </div>
+              <div>
+                <h3 style="font-size: 1.25rem; font-weight: bold;">Benefícios da Reciclagem</h3>
+                <p style="font-size: 1rem; color: var(--muted-foreground);">Entenda o impacto positivo no meio ambiente</p>
+              </div>
+            </div>
+            <ul class="edu-list">
+              <li class="edu-item"><div class="dot"></div><span style="color: var(--muted-foreground);">Redução do volume de lixo nos aterros sanitários</span></li>
+              <li class="edu-item"><div class="dot"></div><span style="color: var(--muted-foreground);">Economia de recursos naturais e energia</span></li>
+              <li class="edu-item"><div class="dot"></div><span style="color: var(--muted-foreground);">Diminuição da poluição do ar e da água</span></li>
+              <li class="edu-item"><div class="dot"></div><span style="color: var(--muted-foreground);">Geração de empregos na cadeia da reciclagem</span></li>
+              <li class="edu-item"><div class="dot"></div><span style="color: var(--muted-foreground);">Preservação da biodiversidade local</span></li>
+            </ul>
+          </div>
+          <div class="edu-card">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <div style="padding: 0.75rem; border-radius: 0.5rem; background: rgba(34,197,94,0.1);">
+                <svg width="32" height="32" fill="none" stroke="var(--primary)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+              </div>
+              <div>
+                <h3 style="font-size: 1.25rem; font-weight: bold;">Dicas Sustentáveis</h3>
+                <p style="font-size: 1rem; color: var(--muted-foreground);">Práticas simples para o dia a dia</p>
+              </div>
+            </div>
+            <ul class="edu-list">
+              <li class="edu-item"><div class="dot"></div><span style="color: var(--muted-foreground);">Lave as embalagens antes de descartar</span></li>
+              <li class="edu-item"><div class="dot"></div><span style="color: var(--muted-foreground);">Reutilize recipientes sempre que possível</span></li>
+              <li class="edu-item"><div class="dot"></div><span style="color: var(--muted-foreground);">Evite misturar materiais diferentes</span></li>
+              <li class="edu-item"><div class="dot"></div><span style="color: var(--muted-foreground);">Remova tampas e rótulos quando necessário</span></li>
+              <li class="edu-item"><div class="dot"></div><span style="color: var(--muted-foreground);">Use sacolas retornáveis para compras</span></li>
+            </ul>
+          </div>
+          <div class="edu-card">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <div style="padding: 0.75rem; border-radius: 0.5rem; background: rgba(34,197,94,0.1);">
+                <svg width="32" height="32" fill="none" stroke="var(--primary)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-4 1m0-18l4 1  .75 3M21 4.75l-3.75 3m0 12l3 1 4-4-1-3m-6-12l-1 3h-4l-1-3"/></svg>
+              </div>
+              <div>
+                <h3 style="font-size: 1.25rem; font-weight: bold;">Inovação e Tecnologia</h3>
+                <p style="font-size: 1rem; color: var(--muted-foreground);">O futuro da reciclagem no Sítio Cercado</p>
+              </div>
+            </div>
+            <ul class="edu-list">
+              <li class="edu-item"><div class="dot"></div><span style="color: var(--muted-foreground);">Aplicativos para localizar pontos de coleta</span></li>
+              <li class="edu-item"><div class="dot"></div><span style="color: var(--muted-foreground);">Sistemas de recompensa por reciclagem</span></li>
+              <li class="edu-item"><div class="dot"></div><span style="color: var(--muted-foreground);">Compostagem urbana automatizada</span></li>
+              <li class="edu-item"><div class="dot"></div><span style="color: var(--muted-foreground);">Coleta seletiva inteligente</span></li>
+              <li class="edu-item"><div class="dot"></div><span style="color: var(--muted-foreground);">Educação ambiental digital</span></li>
+            </ul>
+          </div>
+        </div>
+        <div style="margin-top: 4rem; text-align: center;">
+          <div class="cta-card">
+            <svg width="64" height="64" fill="none" stroke="var(--primary-foreground)" viewBox="0 0 24 24" style="margin: 0 auto 1rem;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            <h3 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem;">Faça Parte da Mudança</h3>
+            <p style="opacity: 0.9; margin-bottom: 1.5rem;">Cada gesto conta para um Sítio Cercado mais sustentável. Comece hoje mesmo a separar seus resíduos corretamente.</p>
+            <div style="font-size: 0.875rem; opacity: 0.8;">
+              <strong>Projeto desenvolvido por:</strong><br />
+              Alexandre Gustavo Tomasczeski Brito<br />
+              Faculdade - Cidades e Comunidades Sustentáveis
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div style="grid-column: span 2 / span 2;">
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+              <div style="display: flex; align-items: center; justify-content: center; height: 2rem; width: 2rem; border-radius: 0.5rem; background: var(--primary);">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M7 7h10v2l3-3-3-3v2H5v6h2V7zm10 10H7v-2l-3 3 3 3v-2h12v-6h-2v4z"/></svg>
+              </div>
+              <span style="font-weight: bold; font-size: 1.25rem;">Reciclaria</span>
+            </div>
+            <p style="opacity: 0.8; margin-bottom: 1rem; max-width: 28rem;">Plataforma educativa para promover práticas sustentáveis de reciclagem no bairro Sítio Cercado, Curitiba - PR.</p>
+            <div style="display: flex; align-items: center; gap: 0.5rem; opacity: 0.6;">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              <span style="font-size: 0.875rem;">Sítio Cercado, Curitiba - PR</span>
+            </div>
+          </div>
+          <div>
+            <h4 style="font-weight: 600; margin-bottom: 1rem;">Links Rápidos</h4>
+            <ul class="footer-links">
+              <li><a href="#home" class="footer-link">Início</a></li>
+              <li><a href="#mapa" class="footer-link">Mapa Interativo</a></li>
+              <li><a href="#educativo" class="footer-link">Educação Ambiental</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 style="font-weight: 600; margin-bottom: 1rem;">Projeto</h4>
+            <ul style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.875rem;">
+              <li style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="16" height="16" fill="none" stroke="var(--primary)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                <span style="opacity: 0.8;">Cidades Sustentáveis</span>
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="16" height="16" fill="none" stroke="var(--primary)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                <span style="opacity: 0.8;">Projeto Acadêmico</span>
+              </li>
+              <li style="display: flex; align-items: center; gap: 0.5rem;">
+                <svg width="16" height="16" fill="none" stroke="var(--primary)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                <span style="opacity: 0.8;">Open Source</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="bottom-bar">
+          <p style="opacity: 0.6; font-size: 0.875rem;">© 2025 Reciclaria - Alexandre Gustavo Tomasczeski Brito</p>
+          <div style="display: flex; align-items: center; gap: 1.5rem; font-size: 0.875rem;">
+            <span style="opacity: 0.8;">Desenvolvido com Sustentabilidade em Mente</span>
+            <div style="display: flex; align-items: center; gap: 0.25rem;">
+              <svg width="16" height="16" fill="none" stroke="var(--primary)" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <script>
+      function scrollToSection(id) {
+        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+      }
+
+      const pontosColeta = [
+        { id: 1, nome: "Posto de Coleta Central", endereco: "Av. Winston Churchill, 2033 - Sítio Cercado", lat: -25.5389, lng: -49.2819, tipo: "Posto Municipal", horario: "Segunda a Sexta: 8h às 17h", materiais: ["Papel", "Plástico", "Metal", "Vidro"], telefone: "(41) 3350-8484" },
+        { id: 2, nome: "Escola Municipal Sustentável", endereco: "Rua Sebastião Paraná, 456 - Sítio Cercado", lat: -25.5355, lng: -49.2845, tipo: "Ponto Educativo", horario: "Segunda a Sexta: 7h às 11h, 13h às 17h", materiais: ["Papel", "Plástico", "Pilhas"], telefone: "(41) 3350-8000" },
+        { id: 3, nome: "Supermercado Verde", endereco: "Rua Bartolomeu Lourenço de Gusmão, 789 - Sítio Cercado", lat: -25.5420, lng: -49.2790, tipo: "Parceria Privada", horario: "Segunda a Domingo: 7h às 22h", materiais: ["Plástico", "Metal", "Embalagens"], telefone: "(41) 3333-4444" },
+        { id: 4, nome: "Unidade de Saúde Reciclável", endereco: "Rua Deputado Heitor Alencar Furtado, 234 - Sítio Cercado", lat: -25.5370, lng: -49.2760, tipo: "UBS Sustentável", horario: "Segunda a Sexta: 8h às 16h", materiais: ["Papel", "Medicamentos Vencidos"], telefone: "(41) 3350-8200" },
+        { id: 5, nome: "Centro Comunitário Verde", endereco: "Rua Célio de Oliveira Rocha, 567 - Sítio Cercado", lat: -25.5335, lng: -49.2880, tipo: "Centro Comunitário", horario: "Segunda a Sábado: 9h às 18h", materiais: ["Papel", "Plástico", "Vidro", "Roupas"], telefone: "(41) 3350-8300" }
+      ];
+
+      const streets = [
+        { id: 1, name: "Avenida Sagitário", days: ["segunda", "quarta", "sexta"] },
+        { id: 2, name: "Praça Cícero Portes", days: ["terça", "quinta"] },
+        { id: 3, name: "Praça Emirado Árabes Unidos", days: ["quarta"] },
+        { id: 4, name: "Praça José Luiz Franceschi", days: ["segunda", "quarta", "sexta"] },
+        { id: 5, name: "Praça José Soares Grobe", days: ["terça", "quinta"] },
+        { id: 6, name: "Praça Padre Francisco Corso", days: ["quarta"] },
+        { id: 7, name: "Rua Aarão Lamenha de Siqueira", days: ["segunda", "quarta", "sexta"] },
+        { id: 8, name: "Rua Abelardo Martins", days: ["terça", "quinta"] },
+        { id: 9, name: "Rua Abram Fruse", days: ["quarta"] },
+        { id: 10, name: "Rua Adair Gelenski", days: ["segunda", "quarta", "sexta"] },
+        { id: 11, name: "Rua Adair Marcondes Negrão", days: ["terça", "quinta"] },
+        { id: 12, name: "Rua Adrianópolis", days: ["quarta"] },
+        { id: 13, name: "Rua Affonso Jorge Von Trompowski", days: ["segunda", "quarta", "sexta"] },
+        { id: 14, name: "Rua Afonso Bail", days: ["terça", "quinta"] },
+        { id: 15, name: "Rua Agenor Antônio Rodrigues", days: ["quarta"] },
+        { id: 16, name: "Rua Agenor Ferrari", days: ["segunda", "quarta", "sexta"] },
+        { id: 17, name: "Rua Agudos do Sul", days: ["terça", "quinta"] },
+        { id: 18, name: "Rua Agustin Cortizo Penelas", days: ["quarta"] },
+        { id: 19, name: "Rua Alceu Galize", days: ["segunda", "quarta", "sexta"] },
+        { id: 20, name: "Rua Alexandrino Alves de Oliveira", days: ["terça", "quinta"] },
+        { id: 21, name: "Rua Altevir Borges", days: ["quarta"] },
+        { id: 22, name: "Rua Alvir Teixeira dos Santos", days: ["segunda", "quarta", "sexta"] },
+        { id: 23, name: "Rua Alziro Zarur", days: ["terça", "quinta"] },
+        { id: 24, name: "Rua Ambrósio Thomazzi", days: ["quarta"] },
+        { id: 25, name: "Rua Ana Alzira Pereira", days: ["segunda", "quarta", "sexta"] },
+        { id: 26, name: "Rua Ana Biscaia de Andrade", days: ["terça", "quinta"] },
+        { id: 27, name: "Rua Ana Maria Foggiatto Roda", days: ["quarta"] },
+        { id: 28, name: "Rua Ana Sofia Ribeiro", days: ["segunda", "quarta", "sexta"] },
+        { id: 29, name: "Rua Angélica Erthal Kucek", days: ["terça", "quinta"] },
+        { id: 30, name: "Rua Ângelo Boff", days: ["quarta"] },
+        { id: 31, name: "Rua Ângelo Favretto", days: ["segunda", "quarta", "sexta"] },
+        { id: 32, name: "Rua Ângelo Moro", days: ["terça", "quinta"] },
+        { id: 33, name: "Rua Anita Jonson Zuctanski", days: ["quarta"] },
+        { id: 34, name: "Rua Anna Henriqueta Schiavon Kucek", days: ["segunda", "quarta", "sexta"] },
+        { id: 35, name: "Rua Antônio Bento", days: ["terça", "quinta"] },
+        { id: 36, name: "Rua Antônio Boza", days: ["quarta"] },
+        { id: 37, name: "Rua Antônio Leodenir Gabardo", days: ["segunda", "quarta", "sexta"] },
+        { id: 38, name: "Rua Antônio Razera", days: ["terça", "quinta"] },
+        { id: 39, name: "Rua Antônio Schwartz", days: ["quarta"] },
+        { id: 40, name: "Rua Antônio Simoes de Oliveira", days: ["segunda", "quarta", "sexta"] },
+        { id: 41, name: "Rua Apucarana", days: ["terça", "quinta"] },
+        { id: 42, name: "Rua Arapongas", days: ["quarta"] },
+        { id: 43, name: "Rua Arapoti", days: ["segunda", "quarta", "sexta"] },
+        { id: 44, name: "Rua Arcanjo São Rafael", days: ["terça", "quinta"] },
+        { id: 45, name: "Rua Aristides Marquezini", days: ["quarta"] },
+        { id: 46, name: "Rua Armelindo Peruzzo", days: ["segunda", "quarta", "sexta"] },
+        { id: 47, name: "Rua Assaí", days: ["terça", "quinta"] },
+        { id: 48, name: "Rua Astorga", days: ["quarta"] },
+        { id: 49, name: "Rua Astrônomo Omar Khayyam", days: ["segunda", "quarta", "sexta"] },
+        { id: 50, name: "Rua Attilio Silva Fonseca", days: ["terça", "quinta"] },
+        { id: 51, name: "Rua Augusto Soares da Costa", days: ["quarta"] },
+        { id: 52, name: "Rua Augusto Steenbock Neto", days: ["segunda", "quarta", "sexta"] },
+        { id: 53, name: "Rua Avelina da Luz da Silva", days: ["terça", "quinta"] },
+        { id: 54, name: "Rua Balsa Nova", days: ["quarta"] },
+        { id: 55, name: "Rua Bandeirantes", days: ["segunda", "quarta", "sexta"] },
+        { id: 56, name: "Rua Benedito Elias Kubrusly", days: ["terça", "quinta"] },
+        { id: 57, name: "Rua Benedito Ferreira de Souza", days: ["quarta"] },
+        { id: 58, name: "Rua Billy Garmatter", days: ["segunda", "quarta", "sexta"] },
+        { id: 59, name: "Rua Cafeara", days: ["terça", "quinta"] },
+        { id: 60, name: "Rua Califórnia", days: ["quarta"] },
+        { id: 61, name: "Rua Cambé", days: ["segunda", "quarta", "sexta"] },
+        { id: 62, name: "Rua Campina Grande do Sul", days: ["terça", "quinta"] },
+        { id: 63, name: "Rua Carlos Amoretty Osório", days: ["quarta"] },
+        { id: 64, name: "Rua Carlos Augusto Aldenucci", days: ["segunda", "quarta", "sexta"] },
+        { id: 65, name: "Rua Carlos Roberto Ferreira", days: ["terça", "quinta"] },
+        { id: 66, name: "Rua Cauby da Silva Rego", days: ["quarta"] },
+        { id: 67, name: "Rua Celeste Tortato Gabardo", days: ["segunda", "quarta", "sexta"] },
+        { id: 68, name: "Rua Certemio de Costa", days: ["terça", "quinta"] },
+        { id: 69, name: "Rua Cezar Constante Schiavon", days: ["quarta"] },
+        { id: 70, name: "Rua Cidade de Ituporanga", days: ["segunda", "quarta", "sexta"] },
+        { id: 71, name: "Rua Cidade de Maravilha", days: ["terça", "quinta"] },
+        { id: 72, name: "Rua Cidade de Ouro", days: ["quarta"] },
+        { id: 73, name: "Rua Cidade de Palmas", days: ["segunda", "quarta", "sexta"] },
+        { id: 74, name: "Rua Cidade de Palmitos", days: ["terça", "quinta"] },
+        { id: 75, name: "Rua Cidade de Santa Mariana", days: ["quarta"] },
+        { id: 76, name: "Rua Cidade de Saudades", days: ["segunda", "quarta", "sexta"] },
+        { id: 77, name: "Rua Cidade de Xaxim", days: ["terça", "quinta"] },
+        { id: 78, name: "Rua Cidade Modelo", days: ["quarta"] },
+        { id: 79, name: "Rua Cipriano Barata de Almeida", days: ["segunda", "quarta", "sexta"] },
+        { id: 80, name: "Rua Cláudio Alves de Lima", days: ["terça", "quinta"] },
+        { id: 81, name: "Rua Cláudio Erbano", days: ["quarta"] },
+        { id: 82, name: "Rua Cláudio Tyszka", days: ["segunda", "quarta", "sexta"] },
+        { id: 83, name: "Rua Clemente Mendes Ferreira", days: ["terça", "quinta"] },
+        { id: 84, name: "Rua Clevelândia", days: ["quarta"] },
+        { id: 85, name: "Rua Constantin Frantzeros", days: ["segunda", "quarta", "sexta"] },
+        { id: 86, name: "Rua Contenda", days: ["terça", "quinta"] },
+        { id: 87, name: "Rua Corbélia", days: ["quarta"] },
+        { id: 88, name: "Rua Coronel Domingos Theodorico de Freitas", days: ["segunda", "quarta", "sexta"] },
+        { id: 89, name: "Rua Coronel Joaquim Antônio de Azevedo", days: ["terça", "quinta"] },
+        { id: 90, name: "Rua Coronel Victor Agner Kendrick", days: ["quarta"] },
+        { id: 91, name: "Rua Cruzeiro do Sul", days: ["segunda", "quarta", "sexta"] },
+        { id: 92, name: "Rua Cypriano Ribeiro Cid", days: ["terça", "quinta"] },
+        { id: 93, name: "Rua da Lua", days: ["quarta"] },
+        { id: 94, name: "Rua David Tows", days: ["segunda", "quarta", "sexta"] },
+        { id: 95, name: "Rua Delegado Ruy Rebello Vieira", days: ["terça", "quinta"] },
+        { id: 96, name: "Rua Denise Maria Carneiro de Oliveira", days: ["quarta"] },
+        { id: 97, name: "Rua Deputado Domício Scaramella", days: ["segunda", "quarta", "sexta"] },
+        { id: 98, name: "Rua Desembargador Carlos Pinheiro Guimarães", days: ["terça", "quinta"] },
+        { id: 99, name: "Rua Desembargador Francisco de Paula Xavier Filho", days: ["quarta"] },
+        { id: 100, name: "Rua Desembargador João José Arruda Júnior", days: ["segunda", "quarta", "sexta"] },
+        { id: 101, name: "Rua Desembargador Vatel Gonçalves Pereira", days: ["terça", "quinta"] },
+        { id: 102, name: "Rua Didio Sampaio", days: ["quarta"] },
+        { id: 103, name: "Rua Diva Machado da Luz", days: ["segunda", "quarta", "sexta"] },
+        { id: 104, name: "Rua do Sol", days: ["terça", "quinta"] },
+        { id: 105, name: "Rua Domingos Gonçalves", days: ["quarta"] },
+        { id: 106, name: "Rua Domingos Jorge Velho", days: ["segunda", "quarta", "sexta"] },
+        { id: 107, name: "Rua Domingos Tomaz", days: ["terça", "quinta"] },
+        { id: 108, name: "Rua Donato Gracco", days: ["quarta"] },
+        { id: 109, name: "Rua dos Pioneiros", days: ["segunda", "quarta", "sexta"] },
+        { id: 110, name: "Rua dos Rogacionistas", days: ["terça", "quinta"] },
+        { id: 111, name: "Rua Doutor Agostinho Brenner", days: ["quarta"] },
+        { id: 112, name: "Rua Doutor Fabiano Siqueira Cunha", days: ["segunda", "quarta", "sexta"] },
+        { id: 113, name: "Rua Doutor Galeno de Brito", days: ["terça", "quinta"] },
+        { id: 114, name: "Rua Doutor Jair Lima Gevaerd", days: ["quarta"] },
+        { id: 115, name: "Rua Doutor Jair Lima Gevaerd", days: ["segunda", "quarta", "sexta"] },
+        { id: 116, name: "Rua Doutor José de Almeida Pimpão", days: ["terça", "quinta"] },
+        { id: 117, name: "Rua Doutor Lauro Gentio Portugal Tavares", days: ["quarta"] },
+        { id: 118, name: "Rua Doutor Levy Buquera", days: ["segunda", "quarta", "sexta"] },
+        { id: 119, name: "Rua Doutor Odarci Antônio Mangi", days: ["terça", "quinta"] },
+        { id: 120, name: "Rua Doutor Pedro Darcy de Souza", days: ["quarta"] },
+        { id: 121, name: "Rua Edenilda M. Leal", days: ["segunda", "quarta", "sexta"] },
+        { id: 122, name: "Rua Edgard Cavalcanti de Albuquerque", days: ["terça", "quinta"] },
+        { id: 123, name: "Rua Eduardo Pinto da Rocha", days: ["quarta"] },
+        { id: 124, name: "Rua Edvald Ribas Borba", days: ["segunda", "quarta", "sexta"] },
+        { id: 125, name: "Rua Elbe de Macedo", days: ["terça", "quinta"] },
+        { id: 126, name: "Rua Elem Kotsanar", days: ["quarta"] },
+        { id: 127, name: "Rua Eli Volpato", days: ["segunda", "quarta", "sexta"] },
+        { id: 128, name: "Rua Elizeu de Souza Mendes", days: ["terça", "quinta"] },
+        { id: 129, name: "Rua Elvira Marquesini Vaz", days: ["quarta"] },
+        { id: 130, name: "Rua Engenheiro Daley Sun Busetti Mori", days: ["segunda", "quarta", "sexta"] },
+        { id: 131, name: "Rua Engenheiro Edlar Silveira D'Avilla", days: ["terça", "quinta"] },
+        { id: 132, name: "Rua Engenheiro Waldemar Schinzel", days: ["quarta"] },
+        { id: 133, name: "Rua Ernani Benghi", days: ["segunda", "quarta", "sexta"] },
+        { id: 134, name: "Rua Ernesto Bley", days: ["terça", "quinta"] },
+        { id: 135, name: "Rua Escritor Antônio de Alcântara Machado", days: ["quarta"] },
+        { id: 136, name: "Rua Escritor José Pereira da Graça Aranha", days: ["segunda", "quarta", "sexta"] },
+        { id: 137, name: "Rua Etelvina Maria da Silveira Coelho", days: ["terça", "quinta"] },
+        { id: 138, name: "Rua Euclides de Mesquita", days: ["quarta"] },
+        { id: 139, name: "Rua Eulívio Pastre", days: ["segunda", "quarta", "sexta"] },
+        { id: 140, name: "Rua Eurico Zytkievitz", days: ["terça", "quinta"] },
+        { id: 141, name: "Rua Eurides Dorigo", days: ["quarta"] },
+        { id: 142, name: "Rua Ezequiel Gonçalves de Lara", days: ["segunda", "quarta", "sexta"] },
+        { id: 143, name: "Rua Felipe dos Santos Freire", days: ["terça", "quinta"] },
+        { id: 144, name: "Rua Felipe Muller", days: ["quarta"] },
+        { id: 145, name: "Rua Filósofo Huberto Rohden", days: ["segunda", "quarta", "sexta"] },
+        { id: 146, name: "Rua Floriano Ernani Pesch", days: ["terça", "quinta"] },
+        { id: 147, name: "Rua Florival Elvidio da Silva", days: ["quarta"] },
+        { id: 148, name: "Rua Francisco Claudino Ferreira", days: ["segunda", "quarta", "sexta"] },
+        { id: 149, name: "Rua Francisco Jacob Zardo", days: ["terça", "quinta"] },
+        { id: 150, name: "Rua Francisco José Lobo", days: ["quarta"] },
+        { id: 151, name: "Rua Francisco Kochinski", days: ["segunda", "quarta", "sexta"] },
+        { id: 152, name: "Rua Francisco Monteiro Painhas", days: ["terça", "quinta"] },
+        { id: 153, name: "Rua Francisco Novicki", days: ["quarta"] },
+        { id: 154, name: "Rua Francisco Saturnino de Andrade", days: ["segunda", "quarta", "sexta"] },
+        { id: 155, name: "Rua Francisco Scorssatto", days: ["terça", "quinta"] },
+        { id: 156, name: "Rua Francisco Skrock", days: ["quarta"] },
+        { id: 157, name: "Rua Frederico Félix Schiavon", days: ["segunda", "quarta", "sexta"] },
+        { id: 158, name: "Rua Gabriel Mocellin", days: ["terça", "quinta"] },
+        { id: 159, name: "Rua Gabriel Ribeiro", days: ["quarta"] },
+        { id: 160, name: "Rua Gelson Pilati", days: ["segunda", "quarta", "sexta"] },
+        { id: 161, name: "Rua General José Ferreira de Barros", days: ["terça", "quinta"] },
+        { id: 162, name: "Rua General Julião Müller Neiva de Lima", days: ["quarta"] },
+        { id: 163, name: "Rua Giacomo Lafaiette Minich Bassi", days: ["segunda", "quarta", "sexta"] },
+        { id: 164, name: "Rua Gilberto Tesseroli Padilha", days: ["terça", "quinta"] },
+        { id: 165, name: "Rua Glória Senna", days: ["quarta"] },
+        { id: 166, name: "Rua Gregório Regeta", days: ["segunda", "quarta", "sexta"] },
+        { id: 167, name: "Rua Guacui", days: ["terça", "quinta"] },
+        { id: 168, name: "Rua Guaíra", days: ["quarta"] },
+        { id: 169, name: "Rua Guilherme Bruschz", days: ["segunda", "quarta", "sexta"] },
+        { id: 170, name: "Rua Gustavo Prestes Aldenucci", days: ["terça", "quinta"] },
+        { id: 171, name: "Rua Harry Carlos Wekerlin", days: ["quarta"] },
+        { id: 172, name: "Rua Hayde Pacheco Faria", days: ["segunda", "quarta", "sexta"] },
+        { id: 173, name: "Rua Henriqueta Parolin Schiavon", days: ["terça", "quinta"] },
+        { id: 174, name: "Rua Humberto Marchesini", days: ["quarta"] },
+        { id: 175, name: "Rua Ibaiti", days: ["segunda", "quarta", "sexta"] },
+        { id: 176, name: "Rua Ignez de Lourdes Gomes de Macedo", days: ["terça", "quinta"] },
+        { id: 177, name: "Rua Ildefonso Costa Pinto", days: ["quarta"] },
+        { id: 178, name: "Rua Iretama", days: ["segunda", "quarta", "sexta"] },
+        { id: 179, name: "Rua Irmã Maria Francisca Paolino", days: ["terça", "quinta"] },
+        { id: 180, name: "Rua Itaguaje", days: ["quarta"] },
+        { id: 181, name: "Rua Itambé", days: ["segunda", "quarta", "sexta"] },
+        { id: 182, name: "Rua Ivatuba", days: ["terça", "quinta"] },
+        { id: 183, name: "Rua Ivo Bisoni", days: ["quarta"] },
+        { id: 184, name: "Rua Izaac Ferreira da Cruz", days: ["segunda", "quarta", "sexta"] },
+        { id: 185, name: "Rua Jandaia do Sul", days: ["terça", "quinta"] },
+        { id: 186, name: "Rua Janis Falgatter Roth", days: ["quarta"] },
+        { id: 187, name: "Rua Jardim Alegre", days: ["segunda", "quarta", "sexta"] },
+        { id: 188, name: "Rua Jardim Olinda", days: ["terça", "quinta"] },
+        { id: 189, name: "Rua João Abrão David", days: ["quarta"] },
+        { id: 190, name: "Rua João Baptista Gabardo", days: ["segunda", "quarta", "sexta"] },
+        { id: 191, name: "Rua João Cislinsky", days: ["terça", "quinta"] },
+        { id: 192, name: "Rua João Daeski", days: ["quarta"] },
+        { id: 193, name: "Rua Joao de Abreu", days: ["segunda", "quarta", "sexta"] },
+        { id: 194, name: "Rua João Domingos Calvaca", days: ["terça", "quinta"] },
+        { id: 195, name: "Rua João Eloy de Souza", days: ["quarta"] },
+        { id: 196, name: "Rua João Fleury da Rocha", days: ["segunda", "quarta", "sexta"] },
+        { id: 197, name: "Rua João Krawczyk", days: ["terça", "quinta"] },
+        { id: 198, name: "Rua João Lourenço Taborda", days: ["quarta"] },
+        { id: 199, name: "Rua João Maranho", days: ["segunda", "quarta", "sexta"] },
+        { id: 200, name: "Rua João Socha", days: ["terça", "quinta"] },
+        { id: 201, name: "Rua João Zaions", days: ["quarta"] },
+        { id: 202, name: "Rua Joaquim de Mello", days: ["segunda", "quarta", "sexta"] },
+        { id: 203, name: "Rua Joaquim Gonzaga Pereira", days: ["terça", "quinta"] },
+        { id: 204, name: "Rua Joaquim Mendes da Silva", days: ["quarta"] },
+        { id: 205, name: "Rua Joaquim Pinto Bastos", days: ["segunda", "quarta", "sexta"] },
+        { id: 206, name: "Rua Jorge Brandel", days: ["terça", "quinta"] },
+        { id: 207, name: "Rua Jorge Pedro Anad", days: ["quarta"] },
+        { id: 208, name: "Rua José Alceu Sabatke", days: ["segunda", "quarta", "sexta"] },
+        { id: 209, name: "Rua José Álvaro Tizzot", days: ["terça", "quinta"] },
+        { id: 210, name: "Rua José Armando Correia", days: ["quarta"] },
+        { id: 211, name: "Rua José Augusto da Silva", days: ["segunda", "quarta", "sexta"] },
+        { id: 212, name: "Rua José Bassa", days: ["terça", "quinta"] },
+        { id: 213, name: "Rua José Bonifácio de Barros Pimpão", days: ["quarta"] },
+        { id: 214, name: "Rua José Braz Gomes", days: ["segunda", "quarta", "sexta"] },
+        { id: 215, name: "Rua José dos Santos Ribas", days: ["terça", "quinta"] },
+        { id: 216, name: "Rua José Fontana", days: ["quarta"] },
+        { id: 217, name: "Rua José Francisco Leonardi", days: ["segunda", "quarta", "sexta"] },
+        { id: 218, name: "Rua José Mayer", days: ["terça", "quinta"] },
+        { id: 219, name: "Rua José Prussak", days: ["quarta"] },
+        { id: 220, name: "Rua José Seixas", days: ["segunda", "quarta", "sexta"] },
+        { id: 221, name: "Rua José Vieira de Paula", days: ["terça", "quinta"] },
+        { id: 222, name: "Rua José Wilczak", days: ["quarta"] },
+        { id: 223, name: "Rua Juan Belvedere", days: ["segunda", "quarta", "sexta"] },
+        { id: 224, name: "Rua Juarez Manoel Ramos Ribeiro", days: ["terça", "quinta"] },
+        { id: 225, name: "Rua Júlio de Souza Portela", days: ["quarta"] },
+        { id: 226, name: "Rua Júlio Moura Rodrigues", days: ["segunda", "quarta", "sexta"] },
+        { id: 227, name: "Rua Jundiaí do Sul", days: ["terça", "quinta"] },
+        { id: 228, name: "Rua Júpiter", days: ["quarta"] },
+        { id: 229, name: "Rua Jurandir Caldas", days: ["segunda", "quarta", "sexta"] },
+        { id: 230, name: "Rua Laertes Luiz Fugiato", days: ["terça", "quinta"] },
+        { id: 231, name: "Rua Leonardo Abagge", days: ["quarta"] },
+        { id: 232, name: "Rua Leonardo Guembaroski", days: ["segunda", "quarta", "sexta"] },
+        { id: 233, name: "Rua Leonardo Kucek", days: ["terça", "quinta"] },
+        { id: 234, name: "Rua Leopoldo Knaut Romanovski", days: ["quarta"] },
+        { id: 235, name: "Rua Lira", days: ["segunda", "quarta", "sexta"] },
+        { id: 236, name: "Rua Londrina", days: ["terça", "quinta"] },
+        { id: 237, name: "Rua Lourenço Imoski", days: ["quarta"] },
+        { id: 238, name: "Rua Luiz Batistel Ramos Júnior", days: ["segunda", "quarta", "sexta"] },
+        { id: 239, name: "Rua Luiz Fernando Pinheiro Lima de Abreu", days: ["terça", "quinta"] },
+        { id: 240, name: "Rua Luiza Tortato", days: ["quarta"] },
+        { id: 241, name: "Rua Madre Emília Riquelme", days: ["segunda", "quarta", "sexta"] },
+        { id: 242, name: "Rua Major Júlio Ribeiro de Campos", days: ["terça", "quinta"] },
+        { id: 243, name: "Rua Major Miguel Balbino Blasi", days: ["quarta"] },
+        { id: 244, name: "Rua Mandaguaçu", days: ["segunda", "quarta", "sexta"] },
+        { id: 245, name: "Rua Manoel Cotture", days: ["terça", "quinta"] },
+        { id: 246, name: "Rua Manoel Ricardo de Oliveira", days: ["quarta"] },
+        { id: 247, name: "Rua Marcelo Monaro", days: ["segunda", "quarta", "sexta"] },
+        { id: 248, name: "Rua Marcolina Caetana Chaves", days: ["terça", "quinta"] },
+        { id: 249, name: "Rua Maria Augusta Soares", days: ["quarta"] },
+        { id: 250, name: "Rua Maria da Luz Roquembauer", days: ["segunda", "quarta", "sexta"] },
+        { id: 251, name: "Rua Maria dos Santos Cantarino", days: ["terça", "quinta"] },
+        { id: 252, name: "Rua Maria Nicolas", days: ["quarta"] },
+        { id: 253, name: "Rua Maria Tereza Princival", days: ["segunda", "quarta", "sexta"] },
+        { id: 254, name: "Rua Marialva", days: ["terça", "quinta"] },
+        { id: 255, name: "Rua Maringá", days: ["quarta"] },
+        { id: 256, name: "Rua Mário Ribeiro Chimelli", days: ["segunda", "quarta", "sexta"] },
+        { id: 257, name: "Rua Medianeira", days: ["terça", "quinta"] },
+        { id: 258, name: "Rua Mercúrio", days: ["quarta"] },
+        { id: 259, name: "Rua Miguel Júlio", days: ["segunda", "quarta", "sexta"] },
+        { id: 260, name: "Rua Miguel Losso", days: ["terça", "quinta"] },
+        { id: 261, name: "Rua Miguel Oleskowicz", days: ["quarta"] },
+        { id: 262, name: "Rua Milton Miramir Visinoni", days: ["segunda", "quarta", "sexta"] },
+        { id: 263, name: "Rua Ministro Flávio Suplicy de Lacerda", days: ["terça", "quinta"] },
+        { id: 264, name: "Rua Moreira Sales", days: ["quarta"] },
+        { id: 265, name: "Rua Moyses Gutztein", days: ["segunda", "quarta", "sexta"] },
+        { id: 266, name: "Rua Músico Antero G. da Silva", days: ["terça", "quinta"] },
+        { id: 267, name: "Rua Natal Bim", days: ["quarta"] },
+        { id: 268, name: "Rua Netuno", days: ["segunda", "quarta", "sexta"] },
+        { id: 269, name: "Rua Neuza Brizola", days: ["terça", "quinta"] },
+        { id: 270, name: "Rua Nivaldo Pereira", days: ["quarta"] },
+        { id: 271, name: "Rua Oadi Jorge Barbosa", days: ["segunda", "quarta", "sexta"] },
+        { id: 272, name: "Rua Ogeny Pedro Maia", days: ["terça", "quinta"] },
+        { id: 273, name: "Rua Olívio Domingos Leonardi", days: ["quarta"] },
+        { id: 274, name: "Rua Ophir Ruy Woitowicz", days: ["segunda", "quarta", "sexta"] },
+        { id: 275, name: "Rua Órion", days: ["terça", "quinta"] },
+        { id: 276, name: "Rua Oseas Lazzari Stoterau", days: ["quarta"] },
+        { id: 277, name: "Rua Osmar Simões", days: ["segunda", "quarta", "sexta"] },
+        { id: 278, name: "Rua Otávio Afonso da Silva", days: ["terça", "quinta"] },
+        { id: 279, name: "Rua Othon Cristóvão Cescato", days: ["quarta"] },
+        { id: 280, name: "Rua Otília de Jesus Carlins", days: ["segunda", "quarta", "sexta"] },
+        { id: 281, name: "Rua Otto Mak", days: ["terça", "quinta"] },
+        { id: 282, name: "Rua Padre Francisco Van de Water", days: ["quarta"] },
+        { id: 283, name: "Rua Paissandú", days: ["segunda", "quarta", "sexta"] },
+        { id: 284, name: "Rua Palmas", days: ["terça", "quinta"] },
+        { id: 285, name: "Rua Pastor José Martins da Silva", days: ["quarta"] },
+        { id: 286, name: "Rua Pastor Waldomiro Bileski", days: ["segunda", "quarta", "sexta"] },
+        { id: 287, name: "Rua Paulina Maria da Luz", days: ["terça", "quinta"] },
+        { id: 288, name: "Rua Paulo Alves de Bastos", days: ["quarta"] },
+        { id: 289, name: "Rua Paulo Fagnani", days: ["segunda", "quarta", "sexta"] },
+        { id: 290, name: "Rua Paulo Mass", days: ["terça", "quinta"] },
+        { id: 291, name: "Rua Paulo Maurício Silveira Costa", days: ["quarta"] },
+        { id: 292, name: "Rua Paulo Rio Branco de Macedo", days: ["segunda", "quarta", "sexta"] },
+        { id: 293, name: "Rua Paulo Robl", days: ["terça", "quinta"] },
+        { id: 294, name: "Rua Pedro Airton Zimmermann", days: ["quarta"] },
+        { id: 295, name: "Rua Pedro Claudino da Rocha", days: ["segunda", "quarta", "sexta"] },
+        { id: 296, name: "Rua Pedro Paulo Coraiola", days: ["terça", "quinta"] },
+        { id: 297, name: "Rua Pedro Rodrigues de Lima", days: ["quarta"] },
+        { id: 298, name: "Rua Pérola do Oeste", days: ["segunda", "quarta", "sexta"] },
+        { id: 299, name: "Rua Pinhalão", days: ["terça", "quinta"] },
+        { id: 300, name: "Rua Piraquara", days: ["quarta"] },
+        { id: 301, name: "Rua Planalto", days: ["segunda", "quarta", "sexta"] },
+        { id: 302, name: "Rua Plutão", days: ["terça", "quinta"] },
+        { id: 303, name: "Rua Porecatu", days: ["quarta"] },
+        { id: 304, name: "Rua Porto Rico", days: ["segunda", "quarta", "sexta"] },
+        { id: 305, name: "Rua Prefeito Samuel Mileo", days: ["terça", "quinta"] },
+        { id: 306, name: "Rua Presbítero Waldemiro Miguel Cidral", days: ["quarta"] },
+        { id: 307, name: "Rua Primeiro-Ministro Olof Palme", days: ["segunda", "quarta", "sexta"] },
+        { id: 308, name: "Rua Professor Agostinho Bernardo da Veiga", days: ["terça", "quinta"] },
+        { id: 309, name: "Rua Professor Bernardo Litzinger", days: ["quarta"] },
+        { id: 310, name: "Rua Professor Edgard Octávio Fernandes", days: ["segunda", "quarta", "sexta"] },
+        { id: 311, name: "Rua Professor Erbo Stenzel", days: ["terça", "quinta"] },
+        { id: 312, name: "Rua Professor João Poeck", days: ["quarta"] },
+        { id: 313, name: "Rua Professor Milton Vianna", days: ["segunda", "quarta", "sexta"] },
+        { id: 314, name: "Rua Professor Rúbens Oscar Guelli", days: ["terça", "quinta"] },
+        { id: 315, name: "Rua Professor Zacarias Liteka", days: ["quarta"] },
+        { id: 316, name: "Rua Professora Amália Gasparotto Dona", days: ["segunda", "quarta", "sexta"] },
+        { id: 317, name: "Rua Professora Delminda Santos Fernandes", days: ["terça", "quinta"] },
+        { id: 318, name: "Rua Professora Kloldi Jane Assis", days: ["quarta"] },
+        { id: 319, name: "Rua Professora Woyslava Trzeciak Ângelotti", days: ["segunda", "quarta", "sexta"] },
+        { id: 320, name: "Rua Quatro Barras", days: ["terça", "quinta"] },
+        { id: 321, name: "Rua Quitandinha", days: ["quarta"] },
+        { id: 322, name: "Rua Rancho Alegre", days: ["segunda", "quarta", "sexta"] },
+        { id: 323, name: "Rua Realeza", days: ["terça", "quinta"] },
+        { id: 324, name: "Rua Renato Wilczak", days: ["quarta"] },
+        { id: 325, name: "Rua Reverendo Jahyr Dittrich", days: ["segunda", "quarta", "sexta"] },
+        { id: 326, name: "Rua Roberto Fritsch", days: ["terça", "quinta"] },
+        { id: 327, name: "Rua Roberto Ramon Orta Viacava", days: ["quarta"] },
+        { id: 328, name: "Rua Rogério Gimenez", days: ["segunda", "quarta", "sexta"] },
+        { id: 329, name: "Rua Rosa Leite Anderle", days: ["terça", "quinta"] },
+        { id: 330, name: "Rua Rosalina Calixto", days: ["quarta"] },
+        { id: 331, name: "Rua Rosinei de Oliveira", days: ["segunda", "quarta", "sexta"] },
+        { id: 332, name: "Rua Rúbens Dória de Oliveira", days: ["terça", "quinta"] },
+        { id: 333, name: "Rua Sabáudia", days: ["quarta"] },
+        { id: 334, name: "Rua Salim Salomão", days: ["segunda", "quarta", "sexta"] },
+        { id: 335, name: "Rua Sant'Ana do Itararé", days: ["terça", "quinta"] },
+        { id: 336, name: "Rua São José de Arimateia", days: ["quarta"] },
+        { id: 337, name: "Rua São José dos Pinhais", days: ["segunda", "quarta", "sexta"] },
+        { id: 338, name: "Rua Saturnino Martins", days: ["terça", "quinta"] },
+        { id: 339, name: "Rua Saturno", days: ["quarta"] },
+        { id: 340, name: "Rua Segismundo Maiewski Filho", days: ["segunda", "quarta", "sexta"] },
+        { id: 341, name: "Rua Sérgio Mercer", days: ["terça", "quinta"] },
+        { id: 342, name: "Rua Sertaneja", days: ["quarta"] },
+        { id: 343, name: "Rua Sílvia Maria Lacerda", days: ["segunda", "quarta", "sexta"] },
+        { id: 344, name: "Rua Sinésio Simões de Oliveira", days: ["terça", "quinta"] },
+        { id: 345, name: "Rua Sirius", days: ["quarta"] },
+        { id: 346, name: "Rua Tala Raul Miguel Elias", days: ["segunda", "quarta", "sexta"] },
+        { id: 347, name: "Rua Tenente Arailton Vicente Alves", days: ["terça", "quinta"] },
+        { id: 348, name: "Rua Tenente-Coronel-Aviador Alberto Valeixo", days: ["quarta"] },
+        { id: 349, name: "Rua Tenente José Mendes Magno", days: ["segunda", "quarta", "sexta"] },
+        { id: 350, name: "Rua Tenente Júlio Jacoboski", days: ["terça", "quinta"] },
+        { id: 351, name: "Rua Tereza Magrin Buso", days: ["quarta"] },
+        { id: 352, name: "Rua Tereza Pellanda Nichelle", days: ["segunda", "quarta", "sexta"] },
+        { id: 353, name: "Rua Thereza Thomazzi", days: ["terça", "quinta"] },
+        { id: 354, name: "Rua Tijucas do Sul", days: ["quarta"] },
+        { id: 355, name: "Rua Trombudo Central", days: ["segunda", "quarta", "sexta"] },
+        { id: 356, name: "Rua Urai", days: ["terça", "quinta"] },
+        { id: 357, name: "Rua Urano", days: ["quarta"] },
+        { id: 358, name: "Rua Valdemiro Cislinsky", days: ["segunda", "quarta", "sexta"] },
+        { id: 359, name: "Rua Valdir Mazzuco", days: ["terça", "quinta"] },
+        { id: 360, name: "Rua Valdomiro Poppi", days: ["quarta"] },
+        { id: 361, name: "Rua Vênus", days: ["segunda", "quarta", "sexta"] },
+        { id: 362, name: "Rua Veríssimo Becker Cordeiro", days: ["terça", "quinta"] },
+        { id: 363, name: "Rua Vicente Dionysio", days: ["quarta"] },
+        { id: 364, name: "Rua Waldomiro de Mello Moraes", days: ["segunda", "quarta", "sexta"] },
+        { id: 365, name: "Rua Wellington Borges Araújo", days: ["terça", "quinta"] },
+        { id: 366, name: "Rua Zilda Maria Abbage", days: ["quarta"] },
+        { id: 367, name: "Terminal Sítio Cercado", days: ["segunda", "quarta", "sexta"] },
+        { id: 368, name: "Travessa Adolar Coimbra", days: ["terça", "quinta"] },
+        { id: 369, name: "Travessa Albino Marcolino Antunes", days: ["quarta"] },
+        { id: 370, name: "Travessa Alcioni Camargo de Queiroz", days: ["segunda", "quarta", "sexta"] },
+        { id: 371, name: "Travessa Alexandre Gutierrez Beltrão", days: ["terça", "quinta"] },
+        { id: 372, name: "Travessa Ângelo do Rosário", days: ["quarta"] },
+        { id: 373, name: "Travessa Ângelo Golin", days: ["segunda", "quarta", "sexta"] },
+        { id: 374, name: "Travessa Arantes Ferreira", days: ["terça", "quinta"] },
+        { id: 375, name: "Travessa Armando Carvalho Chaves", days: ["quarta"] },
+        { id: 376, name: "Travessa Arminda Carneiro Neto", days: ["segunda", "quarta", "sexta"] },
+        { id: 377, name: "Travessa Arnaldo Ferreira de Abreu", days: ["terça", "quinta"] },
+        { id: 378, name: "Travessa Benvinda Camilo Antunes", days: ["quarta"] },
+        { id: 379, name: "Travessa Bruno Arthur Hanke", days: ["segunda", "quarta", "sexta"] },
+        { id: 380, name: "Travessa Cezar Barreto", days: ["terça", "quinta"] },
+        { id: 381, name: "Travessa Cipriana Gonçalves dos Santos Cardoso", days: ["quarta"] },
+        { id: 382, name: "Travessa Claudionor de Jesus Afonso Barbosa", days: ["segunda", "quarta", "sexta"] },
+        { id: 383, name: "Travessa Dea Taques de Mesquita", days: ["terça", "quinta"] },
+        { id: 384, name: "Travessa Doutor José Andrade de Azevedo Costa", days: ["quarta"] },
+        { id: 385, name: "Travessa Edemée Dutra Calçado", days: ["segunda", "quarta", "sexta"] },
+        { id: 386, name: "Travessa Elizabete Charlote Brand", days: ["terça", "quinta"] },
+        { id: 387, name: "Travessa Gianfranco Bertoni", days: ["quarta"] },
+        { id: 388, name: "Travessa Gustavo Germano Brand", days: ["segunda", "quarta", "sexta"] },
+        { id: 389, name: "Travessa Hamilton Pinto Alves", days: ["terça", "quinta"] },
+        { id: 390, name: "Travessa João Ribeiro Dallegrave", days: ["quarta"] },
+        { id: 391, name: "Travessa José Bemben", days: ["segunda", "quarta", "sexta"] },
+        { id: 392, name: "Travessa Josefa Zaions", days: ["terça", "quinta"] },
+        { id: 393, name: "Travessa Laudemeri Rodrigues Apolônio", days: ["quarta"] },
+        { id: 394, name: "Travessa Lúcia Buturi Foltran", days: ["segunda", "quarta", "sexta"] },
+        { id: 395, name: "Travessa Ludovica Robert", days: ["terça", "quinta"] },
+        { id: 396, name: "Travessa Manoel Eugênio Sanzovo Mourão", days: ["quarta"] },
+        { id: 397, name: "Travessa Manoel Quirino dos Santos", days: ["segunda", "quarta", "sexta"] },
+        { id: 398, name: "Travessa Nassim Sado", days: ["terça", "quinta"] },
+        { id: 399, name: "Travessa Olga Monteiro Cortes", days: ["quarta"] },
+        { id: 400, name: "Travessa Oracy Gemba", days: ["segunda", "quarta", "sexta"] },
+        { id: 401, name: "Travessa Pastor João Augusto da Silveira", days: ["terça", "quinta"] },
+        { id: 402, name: "Travessa Paulo Paiva", days: ["quarta"] },
+        { id: 403, name: "Travessa Paulo Pedroso do Amaral", days: ["segunda", "quarta", "sexta"] },
+        { id: 404, name: "Travessa Paulo Ribeiro", days: ["terça", "quinta"] },
+        { id: 405, name: "Travessa Pedro Mazuroka", days: ["quarta"] },
+        { id: 406, name: "Travessa Professor Álvaro Luiz Junqueira França", days: ["segunda", "quarta", "sexta"] },
+        { id: 407, name: "Travessa Rafaella Vidal Chagas", days: ["terça", "quinta"] },
+        { id: 408, name: "Travessa Selvino Caramori", days: ["quarta"] },
+        { id: 409, name: "Travessa Tenente José Lopes de Oliveira", days: ["segunda", "quarta", "sexta"] },
+        { id: 410, name: "Travessa Valdomiro João de Oliveira", days: ["terça", "quinta"] },
+        { id: 411, name: "Travessa Waldemar de Oliveira", days: ["quarta"] },
+        { id: 412, name: "Travessa Waldemar de Oliveira Filho", days: ["segunda", "quarta", "sexta"] },
+        { id: 413, name: "Travessa Walter José de Oliveira", days: ["terça", "quinta"] },
+        { id: 414, name: "Travessa Wilson José de Oliveira", days: ["quarta"] },
+        { id: 415, name: "Travessa Zilda Maria Abbage", days: ["segunda", "quarta", "sexta"] },
+        { id: 416, name: "Vila Avelino Piexoto", days: ["terça", "quinta"] },
+        { id: 417, name: "Vila Bela", days: ["quarta"] },
+        { id: 418, name: "Vila Boa Vista", days: ["segunda", "quarta", "sexta"] },
+        { id: 419, name: "Vila do Bosque", days: ["terça", "quinta"] }
+      ];
+
+      // Nota: Os dias estão atribuídos de forma demonstrativa (baseado em id % 3 para variar entre 1-3 dias/semana). Substitua com os dias reais obtidos do site https://coletalixo.curitiba.pr.gov.br/ para cada rua.
+
+      const bbox = "-25.5621891,-49.2944951,-25.5260118,-49.2455620";
+
+      const map = L.map('map').setView([-25.5380, -49.2820], 14);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap contributors' }).addTo(map);
+
+      const recyclingIcon = L.divIcon({
+        html: '<div style="background-color: #22C55E; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 3px solid white; box-shadow: 0 2px 10px rgba(0,0,0,0.3);"><svg width="16" height="16" fill="white" viewBox="0 0 24 24"><path d="M7 7h10v2l3-3-3-3v2H5v6h2V7zm10 10H7v-2l-3 3 3 3v-2h12v-6h-2v4z"/></svg></div>',
+        className: 'custom-div-icon',
+        iconSize: [30, 30],
+        iconAnchor: [15, 15],
+      });
+
+      let markers = [];
+      let currentHighlights = [];
+
+      function renderPoints(filteredPoints) {
+        const list = document.getElementById('points-list');
+        list.innerHTML = '';
+        markers.forEach(marker => map.removeLayer(marker));
+        markers = [];
+
+        filteredPoints.forEach(ponto => {
+          const marker = L.marker([ponto.lat, ponto.lng], { icon: recyclingIcon }).addTo(map);
+          const popupContent = `
+            <div style="padding: 0.75rem; max-width: 20rem;">
+              <h3 style="font-weight: bold; font-size: 1.125rem; margin-bottom: 0.5rem; color: #15803d;">${ponto.nome}</h3>
+              <p style="font-size: 0.875rem; color: #4b5563; margin-bottom: 0.5rem;">${ponto.endereco}</p>
+              <div style="margin-bottom: 0.5rem;">
+                <span style="display: inline-block; background: #dcfce7; color: #166534; font-size: 0.75rem; padding: 0.25rem 0.5rem; border-radius: 0.25rem;">${ponto.tipo}</span>
+              </div>
+              <p style="font-size: 0.75rem; color: #4b5563; margin-bottom: 0.5rem;"><strong>Horário:</strong> ${ponto.horario}</p>
+              <p style="font-size: 0.75rem; color: #4b5563; margin-bottom: 0.5rem;"><strong>Materiais:</strong> ${ponto.materiais.join(', ')}</p>
+              <p style="font-size: 0.75rem; color: #4b5563;"><strong>Contato:</strong> ${ponto.telefone}</p>
+            </div>
+          `;
+          marker.bindPopup(popupContent);
+          markers.push(marker);
+
+          const card = document.createElement('div');
+          card.className = 'point-card';
+          card.innerHTML = `
+            <div style="padding-bottom: 0.75rem;">
+              <h3 style="font-size: 1.125rem; display: flex; align-items: center;">
+                <svg width="20" height="20" fill="none" stroke="var(--primary)" viewBox="0 0 24 24" style="margin-right: 0.5rem;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                ${ponto.nome}
+              </h3>
+              <p style="color: var(--muted-foreground);">${ponto.endereco}</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+              <div style="display: flex; align-items: center; font-size: 0.875rem;">
+                <svg width="16" height="16" fill="none" stroke="var(--muted-foreground)" viewBox="0 0 24 24" style="margin-right: 0.5rem;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                ${ponto.horario}
+              </div>
+              <div style="display: flex; align-items: center; font-size: 0.875rem;">
+                <svg width="16" height="16" fill="none" stroke="var(--muted-foreground)" viewBox="0 0 24 24" style="margin-right: 0.5rem;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                ${ponto.telefone}
+              </div>
+              <div style="display: flex; align-items: flex-start; font-size: 0.875rem;">
+                <svg width="16" height="16" fill="none" stroke="var(--primary)" viewBox="0 0 24 24" style="margin-right: 0.5rem; margin-top: 0.125rem;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h10v2l3-3-3-3v2H5v6h2V7zm10 10H7v-2l-3 3 3 3v-2h12v-6h-2v4z"/></svg>
+                <div class="materials">
+                  ${ponto.materiais.map(m => `<span class="material-tag">${m}</span>`).join('')}
+                </div>
+              </div>
+            </div>
+          `;
+          list.appendChild(card);
+        });
+      }
+
+      function filterPoints() {
+        const trashType = document.getElementById('trash-type-filter').value;
+
+        const filtered = pontosColeta.filter(ponto => {
+          const matchesTrash = !trashType || ponto.materiais.includes(trashType);
+          return matchesTrash;
+        });
+
+        renderPoints(filtered);
+      }
+
+      function updateStreetSelect(selectedDay) {
+        const streetSelect = document.getElementById('street-select');
+        streetSelect.innerHTML = '<option value="">Selecione uma rua</option>';
+        let filteredStreets = streets;
+        if (selectedDay) {
+          filteredStreets = streets.filter(s => s.days.includes(selectedDay));
+        }
+        filteredStreets.sort((a, b) => a.name.localeCompare(b.name));
+        filteredStreets.forEach(s => {
+          const option = document.createElement('option');
+          option.value = s.name;
+          option.textContent = s.name;
+          streetSelect.appendChild(option);
+        });
+      }
+
+      function highlightStreet(streetName) {
+        currentHighlights.forEach(layer => map.removeLayer(layer));
+        currentHighlights = [];
+
+        if (!streetName) return;
+
+        const query = `[out:json][timeout:25];way["name"="${streetName}"]["highway"](${bbox});out geom;`;
+        const url = 'https://overpass-api.de/api/interpreter?data=' + encodeURIComponent(query);
+
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            if (data.elements.length === 0) {
+              alert('Rua não encontrada no mapa OpenStreetMap.');
+              return;
+            }
+
+            let allCoords = [];
+            data.elements.forEach(way => {
+              const coords = way.geometry.map(g => [g.lat, g.lon]);
+              allCoords = allCoords.concat(coords);
+              const polyline = L.polyline(coords, { color: 'red', weight: 5 }).addTo(map);
+              currentHighlights.push(polyline);
+            });
+
+            const bounds = L.latLngBounds(allCoords);
+            map.fitBounds(bounds, { padding: [50, 50] });
+          })
+          .catch(error => {
+            console.error('Erro ao buscar dados do Overpass:', error);
+            alert('Erro ao carregar a rua. Tente novamente.');
+          });
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const dayFilter = document.getElementById('day-filter');
+        const streetSelect = document.getElementById('street-select');
+
+        dayFilter.addEventListener('change', () => updateStreetSelect(dayFilter.value));
+        streetSelect.addEventListener('change', () => highlightStreet(streetSelect.value));
+
+        updateStreetSelect('');
+        renderPoints(pontosColeta);
+      });
+    </script>
+  </body>
+</html>
