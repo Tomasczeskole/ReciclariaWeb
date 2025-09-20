@@ -6,6 +6,10 @@
 ## Descrição do Projeto
 Este projeto tem como objetivo desenvolver um **site funcional e de fácil acesso** que apresente as rotas de descarte de lixo reciclável no bairro **Sítio Cercado**, em Curitiba/PR. A plataforma busca facilitar o acesso da população local a informações sobre coleta seletiva, incentivando práticas corretas de descarte e reciclagem, além de estimular a participação ativa dos moradores.
 
+![image](etapas_dev.png)
+
+
+
 ## Objetivos
 - Desenvolver um site funcional e de fácil acesso que apresente as rotas de descarte de lixo reciclável no bairro Sítio Cercado.  
 - Mapear os pontos de coleta e as rotas existentes para descarte de resíduos recicláveis na comunidade local.  
